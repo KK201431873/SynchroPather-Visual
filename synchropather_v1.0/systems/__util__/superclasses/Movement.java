@@ -12,12 +12,12 @@ public abstract class Movement {
 	 * The duration of time this Movement is allotted for.
 	 */
 	protected TimeSpan timeSpan;
-	
+
 	/**
 	 * The type of this movement.
 	 */
 	public final MovementType movementType;
-	
+
 	/**
 	 * Creates a new Movement with the given MovementType and TimeSpan.
 	 * @param movementType
@@ -83,6 +83,13 @@ public abstract class Movement {
 	 * @return the indicated velocity RobotState.
 	 */
 	public abstract RobotState getVelocity(double elapsedTime);
+
+	/**
+	 * Returns the robot's desired acceleration RobotState in this Movement at the given elapsed time.
+	 * @param elapsedTime
+	 * @return the indicated acceleration RobotState.
+	 */
+	public abstract RobotState getAcceleration(double elapsedTime);
 
 	/**
 	 * @return the RobotState of this Movement at time zero.

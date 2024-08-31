@@ -20,6 +20,7 @@ import synchropather.systems.translation.TranslationState;
 public class RobotImage extends JComponent {
 	
 	public double x, y, heading;
+	private TranslationState velocity, acceleration;
 	private MovementSequenceImage movementSequenceImage;
 	private static double[] WORLD_ORIGIN = CanvasConstants.WORLD_ORIGIN;
 	private static double PIXEL_PER_INCH = CanvasConstants.PIXEL_PER_INCH;
@@ -29,6 +30,8 @@ public class RobotImage extends JComponent {
 		x = 0;
 		y = 0;
 		heading = 0;
+		velocity = new TranslationState(0,0);
+		acceleration = new TranslationState(0,0);
 	}
 	
 	public void setSplineImage(MovementSequenceImage movementSequenceImage) {
@@ -40,6 +43,14 @@ public class RobotImage extends JComponent {
 		this.y = translationState.getY();
 		this.heading = rotationState.getHeading();
 		movementSequenceImage.setElapsedTime(elapsedTime);
+	}
+
+	public void setVelocity(TranslationState velocity) {
+		this.velocity = velocity;
+	}
+
+	public void setAcceleration(TranslationState acceleration) {
+		this.acceleration = acceleration;
 	}
 	
 	public void setX(double x) {
@@ -132,7 +143,20 @@ public class RobotImage extends JComponent {
         g2.draw(side3);
 		g2.setColor(new Color((int)(0.5*color.getRed()), (int)(0.5*color.getGreen()), (int)(0.5*color.getBlue()), (int) (255*opacity)));
         g2.draw(headingLine);
-    	
+
+		// Draw velocity vector
+		TranslationState scaledVelocity = velocity.times(0.25*PIXEL_PER_INCH);
+		Line2D velocityVector = new Line2D.Double(renderX+WORLD_ORIGIN[0], renderY+WORLD_ORIGIN[1], renderX+scaledVelocity.getX()+WORLD_ORIGIN[0], renderY-scaledVelocity.getY()+WORLD_ORIGIN[1]);
+		g2.setColor(new Color(0, 255, 0, (int) (255*opacity)));
+		g2.setStroke(new BasicStroke(5, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		g2.draw(velocityVector);
+
+		// Draw acceleration vector
+		TranslationState scaledAcceleration = acceleration.times(0.25*PIXEL_PER_INCH);
+		Line2D accelerationVector = new Line2D.Double(renderX+WORLD_ORIGIN[0], renderY+WORLD_ORIGIN[1], renderX+scaledAcceleration.getX()+WORLD_ORIGIN[0], renderY-scaledAcceleration.getY()+WORLD_ORIGIN[1]);
+		g2.setColor(new Color(0, 0, 255, (int) (255*opacity)));
+		g2.setStroke(new BasicStroke(5, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER));
+		g2.draw(accelerationVector);
     }
     
 }

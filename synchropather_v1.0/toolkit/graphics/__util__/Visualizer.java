@@ -25,7 +25,7 @@ public class Visualizer {
 	private JFrame frame;
 	private JLabel x, y, h, timeLabel, fps;
 	private double time, elapsedTime, lastTime, deltaTime;
-	private TranslationState translationVelocity, translationState;
+	private TranslationState translationAcceleration, translationVelocity, translationState;
 	private RotationState rotationVelocity, rotationState;
 	private Movement currentMovement;
 	private RobotImage robotImage;
@@ -182,14 +182,17 @@ public class Visualizer {
 			if (elapsedTime > time)
 				elapsedTime = 0;
 
+			// get current states
+			translationState = (TranslationState) synchronizer.getState(MovementType.TRANSLATION, elapsedTime);
+			rotationState = (RotationState) synchronizer.getState(MovementType.ROTATION, elapsedTime);
+
 			// get velocities
 			translationVelocity = (TranslationState) synchronizer.getVelocity(MovementType.TRANSLATION, elapsedTime);
 			rotationVelocity = (RotationState) synchronizer.getVelocity(MovementType.ROTATION, elapsedTime);
 			rotationVelocity = RotationState.zero.minus(rotationVelocity);
 
-			// get current states
-			translationState = (TranslationState) synchronizer.getState(MovementType.TRANSLATION, elapsedTime);
-			rotationState = (RotationState) synchronizer.getState(MovementType.ROTATION, elapsedTime);
+			// get translation accel
+			translationAcceleration = (TranslationState) synchronizer.getAcceleration(MovementType.TRANSLATION, elapsedTime);
 
 			DecimalFormat df = new DecimalFormat("0.0");
 			DecimalFormat tl = new DecimalFormat("0.000");
@@ -200,6 +203,8 @@ public class Visualizer {
 			fps.setText(String.format("%s FPS", Math.round(1/deltaTime)));
 						
 			robotImage.setPose(translationState, rotationState, elapsedTime);
+			robotImage.setVelocity(translationVelocity);
+			robotImage.setAcceleration(translationAcceleration);
 
 	        frame.repaint();
 	        lastTime = currentTime;
@@ -284,6 +289,14 @@ public class Visualizer {
 	public RotationState getRotationVelocity() {
 		if (!running) throw new RuntimeException("Simulation is not running!");
 		return rotationVelocity;
+	}
+
+	/**
+	 * @return the current translationAcceleration of this Visualizer if it is running.
+	 */
+	public TranslationState getTranslationAcceleration() {
+		if (!running) throw new RuntimeException("Simulation is not running!");
+		return translationAcceleration;
 	}
 
 	/**

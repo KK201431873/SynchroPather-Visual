@@ -10,12 +10,12 @@ import synchropather.systems.__util__.superclasses.Movement;
  * Movement for planning a linear translation.
  */
 public class LinearTranslation extends Movement {
-	
+
 	private double distance, minDuration;
 	private TranslationState start, end;
 	private StretchedDisplacementCalculator calculator;
-	
-	
+
+
 	/**
 	 * Creates a new LinearTranslation object with a given start and end TranslationState allotted for the given TimeSpan.
 	 * @param timeSpan
@@ -63,11 +63,23 @@ public class LinearTranslation extends Movement {
 	public TranslationState getVelocity(double elapsedTime) {
 		double theta = end.minus(start).theta();
 		double speed = calculator.getVelocity(elapsedTime);
-		
+
 		// scaled velocity vector
 		return new TranslationState(speed, theta, true);
 	}
-	
+
+	/**
+	 * @return the indicated acceleration TranslationState.
+	 */
+	@Override
+	public TranslationState getAcceleration(double elapsedTime) {
+		double theta = end.minus(start).theta();
+		double speed = calculator.getAcceleration(elapsedTime);
+
+		// scaled acceleration vector
+		return new TranslationState(speed, theta, true);
+	}
+
 	@Override
 	public double getMinDuration() {
 		return minDuration;
@@ -96,7 +108,7 @@ public class LinearTranslation extends Movement {
 	public String getDisplayName() {
 		return "LinearTranslation";
 	}
-	
+
 	/**
 	 * Calculates total time.
 	 */
@@ -110,10 +122,10 @@ public class LinearTranslation extends Movement {
 			minDuration = StretchedDisplacementCalculator.findMinDuration(distance, MV, MA);
 			timeSpan = new TimeSpan(startTime, startTime + minDuration);
 		}
-		
+
 		// create calculator object
 		calculator = new StretchedDisplacementCalculator(distance, timeSpan, MV, MA);
-		
+
 		minDuration = calculator.getMinDuration();
 	}
 

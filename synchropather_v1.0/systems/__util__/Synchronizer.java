@@ -10,7 +10,7 @@ import synchropather.systems.__util__.superclasses.RobotState;
 public class Synchronizer {
 
 	private Plan[] plans;
-	
+
 	/**
 	 * Creates a new Synchronizer object with the given Plans.
 	 * @param plans
@@ -64,6 +64,22 @@ public class Synchronizer {
 		for (Plan plan : plans) {
 			if (plan.movementType == movementType) {
 				return plan.getVelocity(elapsedTime);
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Gets the acceleration RobotState at the given elapsedTime within the Plan of the given movementType.
+	 * @param movementType
+	 * @param elapsedTime
+	 * @return the indicated acceleration RobotState, or null if the Plan does not exist.
+	 */
+	@SuppressWarnings("unchecked")
+	public RobotState getAcceleration(MovementType movementType, double elapsedTime) {
+		for (Plan plan : plans) {
+			if (plan.movementType == movementType) {
+				return plan.getAcceleration(elapsedTime);
 			}
 		}
 		return null;

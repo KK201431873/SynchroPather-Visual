@@ -10,7 +10,7 @@ import synchropather.systems.__util__.superclasses.Movement;
  * Movement for planning a linear rotation.
  */
 public class LinearRotation extends Movement {
-	
+
 	private double distance, minDuration;
 	private RotationState start, end;
 	private StretchedDisplacementCalculator calculator;
@@ -68,8 +68,20 @@ public class LinearRotation extends Movement {
 	public RotationState getVelocity(double elapsedTime) {
 		double sign = end.minus(start).sign();
 		double speed = calculator.getVelocity(elapsedTime);
-		
+
 		// scaled velocity vector
+		return new RotationState(sign * speed);
+	}
+
+	/**
+	 * @return the indicated acceleration RotationState.
+	 */
+	@Override
+	public RotationState getAcceleration(double elapsedTime) {
+		double sign = end.minus(start).sign();
+		double speed = calculator.getAcceleration(elapsedTime);
+
+		// scaled acceleration vector
 		return new RotationState(sign * speed);
 	}
 
@@ -96,7 +108,7 @@ public class LinearRotation extends Movement {
 	public String getDisplayName() {
 		return "LinearRotation";
 	}
-	
+
 	/**
 	 * Calculates total time.
 	 */
@@ -110,10 +122,10 @@ public class LinearRotation extends Movement {
 			minDuration = StretchedDisplacementCalculator.findMinDuration(distance, MAV, MAA);
 			timeSpan = new TimeSpan(startTime, startTime + minDuration);
 		}
-		
+
 		// create calculator object
 		calculator = new StretchedDisplacementCalculator(distance, timeSpan, MAV, MAA);
-		
+
 		minDuration = calculator.getMinDuration();
 	}
 

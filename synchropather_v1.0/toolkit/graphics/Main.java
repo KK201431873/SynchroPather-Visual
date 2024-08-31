@@ -1,6 +1,7 @@
 package synchropather.toolkit.graphics;
 
 import synchropather.systems.__util__.Synchronizer;
+import synchropather.systems.__util__.TimeSpan;
 import synchropather.systems.rotation.LinearRotation;
 import synchropather.systems.rotation.RotationPlan;
 import synchropather.systems.rotation.RotationState;
@@ -57,42 +58,6 @@ public class Main {
 				new TranslationState(53,12)
 		);
 
-		LinearTranslation line3 = new LinearTranslation(line2.getEndTime(),
-				new TranslationState(53,12),
-				new TranslationState(0,0)
-		);
-
-		LinearTranslation line4 = new LinearTranslation(line3.getEndTime()+3,
-				new TranslationState(0, 0),
-				new TranslationState(48, 60)
-		);
-
-		LinearTranslation line5 = new LinearTranslation(line4.getEndTime(),
-				new TranslationState(48, 60),
-				new TranslationState(-48, 60)
-		);
-
-		LinearTranslation line6 = new LinearTranslation(line5.getEndTime(),
-				new TranslationState(-48, 60),
-				new TranslationState(-48, -60)
-		);
-
-		LinearTranslation line7 = new LinearTranslation(line6.getEndTime(),
-				new TranslationState(-48, -60),
-				new TranslationState(48, -60)
-		);
-
-		LinearTranslation line8 = new LinearTranslation(line7.getEndTime(),
-				new TranslationState(48, -60),
-				new TranslationState(0,0)
-		);
-
-        CRSplineTranslation returnToStart = new CRSplineTranslation(line8.getEndTime(),
-				new TranslationState(0,0),
-				new TranslationState(-36,12),
-				new TranslationState(-40.75,63.5)
-		);
-
 		TranslationPlan translationPlan = new TranslationPlan(
 				spline1,
 				spline2,
@@ -100,25 +65,48 @@ public class Main {
 				spline4,
 				spline5,
 				line1,
-				line2,
-				line3,
-				line4,
-				line5,
-				line6,
-				line7,
-				line8,
-				returnToStart
+				line2
 		);
 
 
 		// rotation Plan
 		LinearRotation rot1 = new LinearRotation(0,
-				new RotationState(0),
-				new RotationState(Math.toRadians(360))
+				new RotationState(Math.toRadians(-90)),
+				new RotationState(Math.toRadians(0))
+		);
+
+		LinearRotation rot2 = new LinearRotation(spline1.getEndTime()-0.625,
+				new RotationState(Math.toRadians(0)),
+				new RotationState(Math.toRadians(-180))
+		);
+
+		LinearRotation rot3 = new LinearRotation(spline2.getEndTime()-0.75,
+				new RotationState(Math.toRadians(-180)),
+				new RotationState(Math.toRadians(0))
+		);
+
+		LinearRotation rot4 = new LinearRotation(spline3.getEndTime()-0.625,
+				new RotationState(Math.toRadians(0)),
+				new RotationState(Math.toRadians(-180))
+		);
+
+		LinearRotation rot5 = new LinearRotation(spline4.getEndTime()-0.625,
+				new RotationState(Math.toRadians(-180)),
+				new RotationState(Math.toRadians(0))
+		);
+
+		LinearRotation rot6 = new LinearRotation(spline5.getEndTime()-0.625,
+				new RotationState(Math.toRadians(0)),
+				new RotationState(Math.toRadians(-180))
 		);
 
 		RotationPlan rotationPlan = new RotationPlan(
-				rot1
+				rot1,
+				rot2,
+				rot3,
+				rot4,
+				rot5,
+				rot6
 		);
 
 
@@ -129,14 +117,14 @@ public class Main {
 		);
 		
 		// put the MovementSequence into a visualizer object, with timeFactor between 0 and 1 representing the speed of the visualizer
-		double timeFactor = 3;
+		double timeFactor = 1;
 		Visualizer visualizer = new Visualizer(synchronizer, timeFactor);
 		
 		// start visualizer
 		visualizer.start();
 		
 		// main visualizer loop with an example telemetry function
-		double targetFPS = 144;
+		double targetFPS = 60;
 		while (visualizer.loop()) {
 //			generateTelemetry(visualizer, timeFactor);
 			Thread.sleep((int)(1000/targetFPS));
@@ -154,6 +142,7 @@ public class Main {
 
 	static double x = -40.75, y = 63.5, h = 0;
 	static double[] maxAccel = {0,0,0}, maxAccelPos = {0,0}, prevVelocity = {0,0,0};
+	static TranslationState maxTransAccel = new TranslationState(0,0);
 	
 	private static void generateTelemetry(Visualizer visualizer, double timeFactor) {
 		double dt = visualizer.getDeltaTime();
@@ -175,6 +164,9 @@ public class Main {
 		}
 		if (Math.abs(accel[2]) > Math.abs(maxAccel[2]))
 			maxAccel[2] = accel[2];
+
+		TranslationState transAccel = visualizer.getTranslationAcceleration();
+		if (transAccel.hypot() > maxTransAccel.hypot()) maxTransAccel = transAccel;
 		
 		double xv = translationVelocity.getX() * timeFactor;
 		double yv = translationVelocity.getY() * timeFactor;
@@ -182,15 +174,16 @@ public class Main {
 		x += dt * xv;
 		y += dt * yv;
 		h = normalizeAngle(h + dt * hv);
-		System.out.println(String.format("\n\n\n\n\n\n\n\n\n\n\n\n\nRUNTIME [%ss]/[%ss] \n[position = getPose()] \n  X %s𝘪𝘯 \n  Y %s𝘪𝘯 \n  H %s° \n[position = ∫ν𝒹𝓉] \n  X %s𝘪𝘯 \n  Y %s𝘪𝘯 \n  H %s° \n[velocity] \n  X %s𝘪𝘯/𝘴 \n  Y %s𝘪𝘯/𝘴 \n  H %s°/𝘴 \n[accel] \n  m %s𝘪𝘯/𝘴/𝘴 \n  θ %s° \n  h %s𝘳𝘢𝘥/𝘴/𝘴 \n[maxAccel] \n  m %s𝘪𝘯/𝘴/𝘴 \n  θ %s° \n  @ (%s𝘪𝘯, %s𝘪𝘯)", 
+		System.out.printf("\n\n\n\n\n\n\n\n\n\n\n\n\nRUNTIME [%ss]/[%ss] \n[position = getPose()] \n  X %s\uD835\uDE2A\uD835\uDE2F \n  Y %s\uD835\uDE2A\uD835\uDE2F \n  H %s° \n[position = ∫ν\uD835\uDCB9\uD835\uDCC9] \n  X %s\uD835\uDE2A\uD835\uDE2F \n  Y %s\uD835\uDE2A\uD835\uDE2F \n  H %s° \n[velocity] \n  X %s\uD835\uDE2A\uD835\uDE2F/\uD835\uDE34 \n  Y %s\uD835\uDE2A\uD835\uDE2F/\uD835\uDE34 \n  H %s°/\uD835\uDE34 \n[accel] \n  m %s\uD835\uDE2A\uD835\uDE2F/\uD835\uDE34/\uD835\uDE34 \n  θ %s° \n  h %s\uD835\uDE33\uD835\uDE22\uD835\uDE25/\uD835\uDE34/\uD835\uDE34 \n[maxAccel] \n  m %s\uD835\uDE2A\uD835\uDE2F/\uD835\uDE34/\uD835\uDE34 \n  θ %s° \n  @ (%s\uD835\uDE2A\uD835\uDE2F, %s\uD835\uDE2A\uD835\uDE2F)\n[maxTransAccel] \n (%s, %s)\uD835\uDE2A\uD835\uDE2F/\uD835\uDE34/\uD835\uDE34%n",
 				Math.round(visualizer.getElapsedTime()*10000)/10000.0, Math.round(visualizer.getTime()*10000)/10000.0,
 				Math.round(translationState.getX()*100)/100.0, Math.round(translationState.getY()*100)/100.0, Math.round(rotationState.getHeading()*180/Math.PI*100)/100.0,
-				Math.round(x*100)/100.0, Math.round(y*100)/100.0, Math.round(h*100)/100.0, 
-				Math.round(xv*100)/100.0, Math.round(yv*100)/100.0, Math.round(hv*100)/100.0, 
+				Math.round(x*100)/100.0, Math.round(y*100)/100.0, Math.round(h*100)/100.0,
+				Math.round(xv*100)/100.0, Math.round(yv*100)/100.0, Math.round(hv*100)/100.0,
 				Math.round(accel[0]*100)/100.0, Math.round(accel[1]*100)/100.0, Math.round(accel[2]*100)/100.0,
 				Math.round(maxAccel[0]*100)/100.0, Math.round(maxAccel[1]*100)/100.0,
-				Math.round(maxAccelPos[0]*100)/100.0, Math.round(maxAccelPos[1]*100)/100.0
-		));
+				Math.round(maxAccelPos[0]*100)/100.0, Math.round(maxAccelPos[1]*100)/100.0,
+				Math.round(maxTransAccel.getX()*100)/100.0, Math.round(maxTransAccel.getY()*100)/100.0
+		);
 		
 	}
 	
