@@ -1,6 +1,5 @@
 package synchropather.systems.translation;
 
-import synchropather.DriveConstants;
 import synchropather.systems.MovementType;
 import synchropather.systems.__util__.TimeSpan;
 import synchropather.systems.__util__.calculators.StretchedDisplacementCalculator;
@@ -115,8 +114,8 @@ public class LinearTranslation extends Movement {
 	private void init(boolean startTimeConstructor, double startTime) {
 		distance = end.minus(start).hypot();
 
-		double MV = DriveConstants.MAX_VELOCITY;
-		double MA = DriveConstants.MAX_ACCELERATION;
+		double MV = TranslationConstants.MAX_VELOCITY;
+		double MA = TranslationConstants.MAX_ACCELERATION;
 
 		if (startTimeConstructor) {
 			minDuration = StretchedDisplacementCalculator.findMinDuration(distance, MV, MA);

@@ -1,6 +1,5 @@
 package synchropather.systems.rotation;
 
-import synchropather.DriveConstants;
 import synchropather.systems.MovementType;
 import synchropather.systems.__util__.TimeSpan;
 import synchropather.systems.__util__.calculators.StretchedDisplacementCalculator;
@@ -115,8 +114,8 @@ public class LinearRotation extends Movement {
 	private void init(boolean startTimeConstructor, double startTime) {
 		distance = end.minus(start).abs();
 
-		double MAV = DriveConstants.MAX_ANGULAR_VELOCITY;
-		double MAA = DriveConstants.MAX_ANGULAR_ACCELERATION;
+		double MAV = RotationConstants.MAX_ANGULAR_VELOCITY;
+		double MAA = RotationConstants.MAX_ANGULAR_ACCELERATION;
 
 		if (startTimeConstructor) {
 			minDuration = StretchedDisplacementCalculator.findMinDuration(distance, MAV, MAA);

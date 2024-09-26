@@ -1,6 +1,5 @@
 package synchropather.systems.translation;
 
-import synchropather.DriveConstants;
 import synchropather.systems.MovementType;
 import synchropather.systems.__util__.TimeSpan;
 import synchropather.systems.__util__.calculators.StretchedDisplacementCalculator;
@@ -72,8 +71,10 @@ public class CRSplineTranslation extends Movement {
 		TranslationState secondDerivative = getSecondDerivative(n, p_r);
 
 		double speed = calculator.getVelocity(elapsedTime);
+		double theta = getVelocity(elapsedTime).theta();
+		TranslationState linearAcceleration = new TranslationState(calculator.getAcceleration(elapsedTime), theta, true);
 
-		return secondDerivative.times(speed);
+		return secondDerivative.times(speed).plus(linearAcceleration);
 	}
 
 	/**
@@ -256,7 +257,7 @@ public class CRSplineTranslation extends Movement {
 		double dx = calculator.getDisplacement(elapsedTime);
 		int n = getLocalSegment(elapsedTime);
 
-		double delta_t = DriveConstants.delta_t;
+		double delta_t = TranslationConstants.delta_t;
 		double p_r = 0;
 		double localDisplacement = 0;
 		TranslationState lastPose = getState(n,0);
@@ -279,7 +280,7 @@ public class CRSplineTranslation extends Movement {
 
 		// calculate distance
 		distance = 0;
-		double delta_t = DriveConstants.delta_t;
+		double delta_t = TranslationConstants.delta_t;
 		TranslationState prevState = anchors[0];
 		for (int i = 0; i < getLength()-1; i++) {
 			double length = 0;
@@ -294,8 +295,8 @@ public class CRSplineTranslation extends Movement {
 			lengths[i] = length;
 		}
 
-		double MV = DriveConstants.MAX_VELOCITY;
-		double MA = DriveConstants.MAX_ACCELERATION;
+		double MV = TranslationConstants.MAX_VELOCITY;
+		double MA = TranslationConstants.MAX_ACCELERATION;
 
 		if (startTimeConstructor) {
 			minDuration = StretchedDisplacementCalculator.findMinDuration(distance, MV, MA);

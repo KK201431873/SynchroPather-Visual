@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
-import synchropather.DriveConstants;
 import synchropather.systems.MovementType;
 import synchropather.systems.__util__.Synchronizer;
+import synchropather.systems.translation.TranslationConstants;
 import synchropather.systems.translation.TranslationState;
 
 @SuppressWarnings("serial")
@@ -81,7 +81,7 @@ public class MovementSequenceImage extends JComponent {
 		xPoly.add((int)(prev.getX() * PIXEL_PER_INCH + WORLD_ORIGIN[0]));
 		yPoly.add((int)(-prev.getY() * PIXEL_PER_INCH + WORLD_ORIGIN[1]));
 
-		double dt = Math.max(0.05, DriveConstants.delta_t);
+		double dt = Math.max(0.05, TranslationConstants.delta_t);
 		double prevTheta = startTime;
 		for (double count = startTime+dt; count < endTime; count += dt) {
 			TranslationState current = (TranslationState) synchronizer.getState(MovementType.TRANSLATION, count);
