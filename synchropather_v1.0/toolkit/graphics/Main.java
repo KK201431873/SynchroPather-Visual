@@ -116,7 +116,7 @@ public class Main {
 				rotationPlan
 		);
 		
-		// put the MovementSequence into a visualizer object, with timeFactor between 0 and 1 representing the speed of the visualizer
+		// put the Synchronizer into a visualizer object, with timeFactor between 0 and 1 representing the speed of the visualizer
 		double timeFactor = 1;
 		Visualizer visualizer = new Visualizer(synchronizer, timeFactor);
 		
