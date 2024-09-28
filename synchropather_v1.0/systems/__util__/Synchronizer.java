@@ -12,11 +12,17 @@ public class Synchronizer {
 	private Plan[] plans;
 
 	/**
+	 * The elapsed time that determines the state of every Plan.
+	 */
+	private double targetTime;
+
+	/**
 	 * Creates a new Synchronizer object with the given Plans.
 	 * @param plans
 	 */
 	public Synchronizer(Plan... plans) {
 		this.plans = plans;
+		this.targetTime = 0;
 	}
 
 	/**
@@ -35,6 +41,14 @@ public class Synchronizer {
 		for (Plan plan : plans) {
 			plan.setTarget(elapsedTime);
 		}
+		this.targetTime = elapsedTime;
+	}
+
+	/**
+	 * @return whether or not the elapsed time has surpassed the ending time.
+	 */
+	public boolean isFinished() {
+		return targetTime >= getDuration();
 	}
 
 	/**

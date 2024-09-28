@@ -1,4 +1,4 @@
-package synchropather.toolkit.graphics;
+package synchropather.graphics;
 
 import synchropather.systems.__util__.Synchronizer;
 import synchropather.systems.__util__.TimeSpan;
@@ -6,129 +6,167 @@ import synchropather.systems.rotation.LinearRotation;
 import synchropather.systems.rotation.RotationPlan;
 import synchropather.systems.rotation.RotationState;
 import synchropather.systems.translation.CRSplineTranslation;
-import synchropather.systems.translation.LinearTranslation;
 import synchropather.systems.translation.TranslationPlan;
 import synchropather.systems.translation.TranslationState;
-import synchropather.toolkit.graphics.__util__.Visualizer;
+import synchropather.graphics.__util__.Visualizer;
 
 public class Main {
 
 	public static void main(String[] args) throws InterruptedException {
+//
+//		// translation Plan
+//        CRSplineTranslation spline1 = new CRSplineTranslation(0,
+//				new TranslationState(-40.75,63.5),
+//				new TranslationState(-40.75,38),
+//				new TranslationState(43,36)
+//		);
+//
+//        CRSplineTranslation spline2 = new CRSplineTranslation(spline1.getEndTime(),
+//				new TranslationState(43,36),
+//				new TranslationState(0,12),
+//				new TranslationState(-56,12)
+//		);
+//
+//        CRSplineTranslation spline3 = new CRSplineTranslation(spline2.getEndTime(),
+//				new TranslationState(-56,12),
+//				new TranslationState(12,12),
+//				new TranslationState(43,36)
+//		);
+//
+//        CRSplineTranslation spline4 = new CRSplineTranslation(spline3.getEndTime(),
+//				new TranslationState(43,36),
+//				new TranslationState(0,12),
+//				new TranslationState(-36,12),
+//				new TranslationState(-56,24)
+//		);
+//
+//        CRSplineTranslation spline5 = new CRSplineTranslation(spline4.getEndTime(),
+//				new TranslationState(-56,24),
+//				new TranslationState(-36,12),
+//				new TranslationState(0,12),
+//				new TranslationState(43,36)
+//		);
+//
+//		LinearTranslation line1 = new LinearTranslation(spline5.getEndTime(),
+//				new TranslationState(43,36),
+//				new TranslationState(43,12)
+//		);
+//
+//		LinearTranslation line2 = new LinearTranslation(line1.getEndTime(),
+//				new TranslationState(43,12),
+//				new TranslationState(53,12)
+//		);
+//
+//		TranslationPlan translationPlan = new TranslationPlan(
+//				spline1,
+//				spline2,
+//				spline3,
+//				spline4,
+//				spline5,
+//				line1,
+//				line2
+//		);
+//
+//
+//		// rotation Plan
+//		LinearRotation rot1 = new LinearRotation(0,
+//				new RotationState(Math.toRadians(-90)),
+//				new RotationState(Math.toRadians(0))
+//		);
+//
+//		LinearRotation rot2 = new LinearRotation(spline1.getEndTime()-0.625,
+//				new RotationState(Math.toRadians(0)),
+//				new RotationState(Math.toRadians(-180))
+//		);
+//
+//		LinearRotation rot3 = new LinearRotation(spline2.getEndTime()-0.75,
+//				new RotationState(Math.toRadians(-180)),
+//				new RotationState(Math.toRadians(0))
+//		);
+//
+//		LinearRotation rot4 = new LinearRotation(spline3.getEndTime()-0.625,
+//				new RotationState(Math.toRadians(0)),
+//				new RotationState(Math.toRadians(-180))
+//		);
+//
+//		LinearRotation rot5 = new LinearRotation(spline4.getEndTime()-0.625,
+//				new RotationState(Math.toRadians(-180)),
+//				new RotationState(Math.toRadians(0))
+//		);
+//
+//		LinearRotation rot6 = new LinearRotation(spline5.getEndTime()-0.625,
+//				new RotationState(Math.toRadians(0)),
+//				new RotationState(Math.toRadians(-180))
+//		);
+//
+//		RotationPlan rotationPlan = new RotationPlan(
+//				rot1,
+//				rot2,
+//				rot3,
+//				rot4,
+//				rot5,
+//				rot6
+//		);
+//
+//
+//        // put all the Plans into a Synchronizer
+//		Synchronizer synchronizer = new Synchronizer(
+//				translationPlan,
+//				rotationPlan
+//		);
+//
+//		// put the Synchronizer into a visualizer object, with timeFactor between 0 and 1 representing the speed of the visualizer
+//		double timeFactor = 1;
+//		Visualizer visualizer = new Visualizer(synchronizer, timeFactor);
+//
+//		// start visualizer
+//		visualizer.start();
+//
+//		// main visualizer loop with an example telemetry function
+//		double targetFPS = 60;
+//		while (visualizer.loop()) {
+////			generateTelemetry(visualizer, timeFactor);
+//			Thread.sleep((int)(1000/targetFPS));
+//		}
 
-		// translation Plan
-        CRSplineTranslation spline1 = new CRSplineTranslation(0,
-				new TranslationState(-40.75,63.5),
-				new TranslationState(-40.75,38),
-				new TranslationState(43,36)
-		);
 
-        CRSplineTranslation spline2 = new CRSplineTranslation(spline1.getEndTime(),
-				new TranslationState(43,36),
-				new TranslationState(0,12),
-				new TranslationState(-56,12)
-		);
-
-        CRSplineTranslation spline3 = new CRSplineTranslation(spline2.getEndTime(),
-				new TranslationState(-56,12),
-				new TranslationState(12,12),
-				new TranslationState(43,36)
-		);
-
-        CRSplineTranslation spline4 = new CRSplineTranslation(spline3.getEndTime(),
-				new TranslationState(43,36),
-				new TranslationState(0,12),
-				new TranslationState(-36,12),
-				new TranslationState(-56,24)
-		);
-
-        CRSplineTranslation spline5 = new CRSplineTranslation(spline4.getEndTime(),
-				new TranslationState(-56,24),
-				new TranslationState(-36,12),
-				new TranslationState(0,12),
-				new TranslationState(43,36)
-		);
-
-		LinearTranslation line1 = new LinearTranslation(spline5.getEndTime(),
-				new TranslationState(43,36),
-				new TranslationState(43,12)
-		);
-
-		LinearTranslation line2 = new LinearTranslation(line1.getEndTime(),
-				new TranslationState(43,12),
-				new TranslationState(53,12)
+		// Translation plan
+		CRSplineTranslation spline = new CRSplineTranslation(0, 
+				new TranslationState(0, 24),
+				new TranslationState(24, 0),
+				new TranslationState(0, -24),
+				new TranslationState(-24, 0),
+				new TranslationState(0, 24)
 		);
 
 		TranslationPlan translationPlan = new TranslationPlan(
-				spline1,
-				spline2,
-				spline3,
-				spline4,
-				spline5,
-				line1,
-				line2
+				spline
 		);
 
 
-		// rotation Plan
-		LinearRotation rot1 = new LinearRotation(0,
-				new RotationState(Math.toRadians(-90)),
-				new RotationState(Math.toRadians(0))
-		);
-
-		LinearRotation rot2 = new LinearRotation(spline1.getEndTime()-0.625,
-				new RotationState(Math.toRadians(0)),
-				new RotationState(Math.toRadians(-180))
-		);
-
-		LinearRotation rot3 = new LinearRotation(spline2.getEndTime()-0.75,
-				new RotationState(Math.toRadians(-180)),
-				new RotationState(Math.toRadians(0))
-		);
-
-		LinearRotation rot4 = new LinearRotation(spline3.getEndTime()-0.625,
-				new RotationState(Math.toRadians(0)),
-				new RotationState(Math.toRadians(-180))
-		);
-
-		LinearRotation rot5 = new LinearRotation(spline4.getEndTime()-0.625,
-				new RotationState(Math.toRadians(-180)),
-				new RotationState(Math.toRadians(0))
-		);
-
-		LinearRotation rot6 = new LinearRotation(spline5.getEndTime()-0.625,
-				new RotationState(Math.toRadians(0)),
-				new RotationState(Math.toRadians(-180))
+		// Rotation plan
+		LinearRotation rotation = new LinearRotation(new TimeSpan(0, spline.getEndTime()),
+			new RotationState(Math.toRadians(0)),
+			new RotationState(Math.toRadians(360))
 		);
 
 		RotationPlan rotationPlan = new RotationPlan(
-				rot1,
-				rot2,
-				rot3,
-				rot4,
-				rot5,
-				rot6
+			rotation
 		);
 
 
-        // put all the Plans into a Synchronizer
+		// Synchronizer
 		Synchronizer synchronizer = new Synchronizer(
-				translationPlan,
-				rotationPlan
+			translationPlan,
+			rotationPlan
 		);
-		
-		// put the Synchronizer into a visualizer object, with timeFactor between 0 and 1 representing the speed of the visualizer
-		double timeFactor = 1;
-		Visualizer visualizer = new Visualizer(synchronizer, timeFactor);
-		
-		// start visualizer
+
+
+		// Visualizer
+		Visualizer visualizer = new Visualizer(synchronizer);
 		visualizer.start();
-		
-		// main visualizer loop with an example telemetry function
-		double targetFPS = 60;
-		while (visualizer.loop()) {
-//			generateTelemetry(visualizer, timeFactor);
-			Thread.sleep((int)(1000/targetFPS));
-		}
+		while (visualizer.loop());
+
 
 	}
 	

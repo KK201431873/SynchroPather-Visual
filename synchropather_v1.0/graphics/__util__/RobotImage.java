@@ -1,4 +1,4 @@
-package synchropather.toolkit.graphics.__util__;
+package synchropather.graphics.__util__;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -71,7 +71,7 @@ public class RobotImage extends JComponent {
 
         BufferedImage bg = null;
 		try {
-			bg = ImageIO.read(new File("synchropather_v1.0/toolkit/graphics/centerstage_field.png"));
+			bg = ImageIO.read(new File("synchropather_v1.0/graphics/centerstage_field.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package synchropather.toolkit.graphics.__util__;
+package synchropather.graphics.__util__;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -91,7 +91,7 @@ public class Visualizer {
         frame = new JFrame("SynchroPather");
         frame.setSize(782, 805);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(new ImageIcon("synchropather_v1.0/toolkit/graphics/__util__/DRIVE.png").getImage());
+        frame.setIconImage(new ImageIcon("synchropather_v1.0/graphics/__util__/DRIVE.png").getImage());
         
         // creating coordinate box
         JPanel textArea = new JPanel();   
