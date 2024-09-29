@@ -71,7 +71,7 @@ public class RobotImage extends JComponent {
 
         BufferedImage bg = null;
 		try {
-			bg = ImageIO.read(new File("synchropather_v1.0/graphics/centerstage_field.png"));
+			bg = ImageIO.read(new File("synchropather_v1.0/graphics/field.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
