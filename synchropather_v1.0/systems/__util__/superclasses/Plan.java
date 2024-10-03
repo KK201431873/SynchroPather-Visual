@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import synchropather.systems.MovementType;
-import synchropather.systems.__util__.TimeSpan;
 
 /**
  * Object containing a sequence of Movements for a single system.
@@ -78,6 +77,11 @@ public abstract class Plan<T extends RobotState> {
 	 * Calling loop() will control this Plan's robot subsystem to the RobotState at targetTime.
 	 */
 	public abstract void loop();
+
+	/**
+	 * Halt this Plan's subsystem.
+	 */
+	public abstract void stop();
 
 	/**
 	 * Sets targetTime of this Plan to the given elapsedTime.

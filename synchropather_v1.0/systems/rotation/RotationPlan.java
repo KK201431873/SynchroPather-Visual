@@ -26,4 +26,9 @@ public class RotationPlan extends Plan<RotationState> {
 		
 	}
 
+	@Override
+	public void stop() {
+
+	}
+
 }

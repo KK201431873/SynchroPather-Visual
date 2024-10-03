@@ -27,4 +27,9 @@ public class TranslationPlan extends Plan<TranslationState> {
     
 	}
 
+	@Override
+	public void stop() {
+
+	}
+
 }
