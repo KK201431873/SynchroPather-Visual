@@ -1,7 +1,6 @@
 package synchropather.graphics;
 
 import synchropather.systems.__util__.Synchronizer;
-import synchropather.systems.__util__.TimeSpan;
 import synchropather.systems.rotation.LinearRotation;
 import synchropather.systems.rotation.RotationPlan;
 import synchropather.systems.rotation.RotationState;
