@@ -8,10 +8,10 @@ public class RotationConstants {
     /**
      *  Max angular velocity of the robot in rad/s.
      */
-    public static final double MAX_ANGULAR_VELOCITY = 4;
+    public static final double MAX_ANGULAR_VELOCITY = 10*0.65*4;
     /**
      *  Max angular acceleration of the robot in rad/s^2.
      */
-    public static final double MAX_ANGULAR_ACCELERATION = 4;
+    public static final double MAX_ANGULAR_ACCELERATION = 10*0.65*4;
 
 }

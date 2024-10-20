@@ -8,11 +8,11 @@ public class TranslationConstants {
     /**
      *  Max velocity of the robot in in/s.
      */
-    public static final double MAX_VELOCITY = 54d;
+    public static final double MAX_VELOCITY = 0.5*40;
     /**
      *  Max acceleration of the robot in in/s^2.
      */
-    public static final double MAX_ACCELERATION = 54d;
+    public static final double MAX_ACCELERATION = 0.5*54d;
 
     /**
      *  Used for differentiating and integrating spline paths, between 0 and 1 (lower = more calculations, more detail).
