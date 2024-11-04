@@ -49,9 +49,9 @@ public class MovementSequenceImage extends JComponent {
 				0,
 				duration,
 				new BasicStroke(12),
-				new Color(34, 187, 14, 8),
+				new Color(34, 187, 14, 2*8),
 				new BasicStroke(5),
-				new Color(34, 187, 14, 32)
+				new Color(34, 187, 14, 2*32)
 		);
 
 		drawFrom(g2,

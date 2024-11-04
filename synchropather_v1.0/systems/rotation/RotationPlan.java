@@ -1,6 +1,7 @@
 package synchropather.systems.rotation;
 
 import synchropather.systems.MovementType;
+import synchropather.systems.RobotSystem;
 import synchropather.systems.__util__.superclasses.Movement;
 import synchropather.systems.__util__.superclasses.Plan;
 
@@ -13,7 +14,7 @@ public class RotationPlan extends Plan<RotationState> {
 	 * Creates a new RotationPlan object with the given Movements.
 	 * @param movements
 	 */
-	public RotationPlan(Movement... movements) {
+	public RotationPlan(RobotSystem robot, Movement... movements) {
 		super(MovementType.ROTATION, movements);
 	}
 

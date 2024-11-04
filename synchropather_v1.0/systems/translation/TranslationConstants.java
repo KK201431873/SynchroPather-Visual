@@ -8,7 +8,7 @@ public class TranslationConstants {
     /**
      *  Max velocity of the robot in in/s.
      */
-    public static final double MAX_VELOCITY = 0.5*40;
+    public static final double MAX_VELOCITY = 0.5*40d;
     /**
      *  Max acceleration of the robot in in/s^2.
      */

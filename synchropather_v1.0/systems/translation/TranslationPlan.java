@@ -1,6 +1,7 @@
 package synchropather.systems.translation;
 
 import synchropather.systems.MovementType;
+import synchropather.systems.RobotSystem;
 import synchropather.systems.__util__.superclasses.Movement;
 import synchropather.systems.__util__.superclasses.Plan;
 
@@ -13,7 +14,7 @@ public class TranslationPlan extends Plan<TranslationState> {
 	 * Creates a new TranslationPlan object with the given Movements.
 	 * @param movements
 	 */
-	public TranslationPlan(Movement... movements) {
+	public TranslationPlan(RobotSystem robot, Movement... movements) {
 		super(MovementType.TRANSLATION, movements);
 	}
 

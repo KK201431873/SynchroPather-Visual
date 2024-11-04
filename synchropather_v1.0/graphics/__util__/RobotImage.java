@@ -24,7 +24,7 @@ public class RobotImage extends JComponent {
 	private MovementSequenceImage movementSequenceImage;
 	private static double[] WORLD_ORIGIN = CanvasConstants.WORLD_ORIGIN;
 	private static double PIXEL_PER_INCH = CanvasConstants.PIXEL_PER_INCH;
-	private final static double WIDTH = 17 * PIXEL_PER_INCH, HEIGHT = 14.5 * PIXEL_PER_INCH;
+	private final static double WIDTH = 17.5 * PIXEL_PER_INCH, HEIGHT = 14 * PIXEL_PER_INCH;
 	
 	public RobotImage() {
 		x = 0;

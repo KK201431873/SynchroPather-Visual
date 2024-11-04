@@ -20,7 +20,7 @@ import synchropather.systems.translation.TranslationState;
  */
 public class Visualizer {
 
-	private Synchronizer synchronizer;
+	public Synchronizer synchronizer;
 	private boolean running, paused, requestedStop;
 	private JFrame frame;
 	private JLabel x, y, h, timeLabel, fps;
